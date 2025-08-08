@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql_app
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+    networks:
+      - mysql_bridge
+
+  app:
+    build:
+      context: .  
+    container_name: my-app
+    ports:
+      - "8086:8080"
+    networks:
+      - mysql_bridge
+
+networks:
+  mysql_bridge:
+    external: true  
